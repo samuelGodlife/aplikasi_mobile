@@ -5,7 +5,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:logins_screen/Screens/Features/USERS/HomeUsers.dart';
-import 'package:logins_screen/Screens/Features/USERS/Transaksi/Transaksi.dart';
 import '../../API/RestApi.dart';
 import '../../Screens/Features/USERS/Transaksi/DetailTransaksi.dart';
 import '../../utils/constants.dart';
@@ -40,6 +39,7 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
             child: ListBody(
               children: <Widget>[
                 TextField(
+                  maxLines: null,
                   controller: txtcatatan,
                   decoration: InputDecoration(
                     hintText: 'Alasan Retur',
@@ -95,7 +95,23 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
-                  _uploadFile2(namepatch2);
+                  AwesomeDialog(
+                    context: context,
+                    dialogType: DialogType.WARNING,
+                    animType: AnimType.RIGHSLIDE,
+                    headerAnimationLoop: true,
+                    title: 'Apakah Anda Yakin',
+                    desc: "Anda yakin melakukan retur barang ?",
+                    btnOkOnPress: () async {
+                      _uploadFile2(namepatch2);
+                    },
+                    btnOkIcon: Icons.check,
+                    btnOkColor: kColorTealToSlow,
+                    btnCancelOnPress: () async {},
+                    btnCancelIcon: Icons.cancel,
+                    btnCancelColor: kColorRedSlow,
+                  ).show();
+
                   // Navigator.of(context).pop();
                 },
               ),
@@ -186,7 +202,43 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
               title: 'Berhasil',
               desc: 'Berhasil Upload Retur',
               btnOkOnPress: () {
-                misal = 2;
+                Navigator.pushNamed(context, HomeUsers.routeName,
+                    arguments: {"index": 1});
+              },
+              btnOkIcon: Icons.check,
+              btnOkColor: kColorGreen)
+          .show();
+    } catch (e) {
+      print("Exception Caught: $e");
+    }
+  }
+
+  void updateStatus() async {
+    // Get base file name
+    // print("File base name:" + fileName.toString());
+
+    try {
+      Dio dio = new Dio();
+      dio.options.headers["Content-Type"] = "multipart/form-data";
+
+      FormData formData = FormData.fromMap({
+        "status": "Selesai",
+      });
+
+      var url =
+          '$transaksiCancelRetur/${DetailTransaksiPage.dataTransaksi['_id']}';
+      // ignore: unused_local_variable
+      final response = await dio.put(url, data: formData);
+      AwesomeDialog(
+              context: context,
+              dialogType: DialogType.SUCCES,
+              animType: AnimType.RIGHSLIDE,
+              headerAnimationLoop: true,
+              title: 'Berhasil',
+              desc: 'Berhasil Upload Retur',
+              btnOkOnPress: () {
+                Navigator.pushNamed(context, HomeUsers.routeName,
+                    arguments: {"index": 1});
               },
               btnOkIcon: Icons.check,
               btnOkColor: kColorGreen)
@@ -341,11 +393,47 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
                     child: DetailTransaksiPage.dataTransaksi["status"] ==
                             'Retur'
                         ? Center(
-                            child: Text(
-                              'Proses Retur Sedang Diajukan',
-                              style: TextStyle(color: Colors.red),
-                            ),
-                          )
+                            child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Proses Retur Sedang Diajukan',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: TextButton(
+                                      onPressed: () {
+                                        AwesomeDialog(
+                                          context: context,
+                                          dialogType: DialogType.WARNING,
+                                          animType: AnimType.RIGHSLIDE,
+                                          headerAnimationLoop: true,
+                                          title: 'Yakin Membatalkan Retur',
+                                          desc:
+                                              "Anda tidak dapat retur barang ini lagi dan status akan berubah menjadi selesai",
+                                          btnOkOnPress: () async {
+                                            updateStatus();
+                                          },
+                                          btnOkIcon: Icons.check,
+                                          btnOkColor: kColorTealToSlow,
+                                          btnCancelOnPress: () async {},
+                                          btnCancelIcon: Icons.cancel,
+                                          btnCancelColor: kColorRedSlow,
+                                        ).show();
+                                      },
+                                      child: Text(
+                                        "Batal Retur",
+                                        style: TextStyle(color: Colors.white),
+                                      )))
+                            ],
+                          ))
                         : Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -411,8 +499,7 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                            "$Rek2",
+                                        Text("$Rek2",
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         SizedBox(
@@ -437,8 +524,7 @@ class _DetailTransaksiScreens extends State<DetailTransaksiScreens> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Text(
-                                            "$Rek3",
+                                        Text("$Rek3",
                                             style:
                                                 TextStyle(color: Colors.white)),
                                         SizedBox(

@@ -10,7 +10,7 @@ class KerangjangPage extends StatelessWidget {
     SizeConfig().init(context);
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
+          automaticallyImplyLeading: true,
           title: HeadersForHome("Keranjang"),
         ),
         body: KerangjangScreens());

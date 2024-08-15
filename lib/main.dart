@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
+import 'package:logins_screen/Pages/Admin.dart';
 import 'package:logins_screen/Pages/DashboardUser.dart';
 
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ void main() async {
       var data = jsonDecode(dataUserLogin);
       if (data['role'] == 'user') {
         defaultRoutes = DashboardScreen.routeName;
+      } else if (data['role'] == 'admin') {
+        defaultRoutes = AdminPage.routeName;
       } else {
         defaultRoutes = SplashScreen.routeName;
       }

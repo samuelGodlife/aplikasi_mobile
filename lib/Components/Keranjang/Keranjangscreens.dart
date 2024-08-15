@@ -40,6 +40,7 @@ class _KerangjangScreens extends State<KerangjangScreens> {
             child: ListBody(
               children: <Widget>[
                 TextField(
+                  maxLines: null,
                   controller: txtcatatan,
                   decoration: InputDecoration(
                     hintText: 'Catatan Pesanan',
@@ -60,7 +61,7 @@ class _KerangjangScreens extends State<KerangjangScreens> {
               onPressed: () {
                 Navigator.of(context).pop();
                 // Optionally do something with the input data
-                print('Simpand: ${txtcatatan.text}');
+                print('Simpan: ${txtcatatan.text}');
               },
             ),
           ],
@@ -119,7 +120,7 @@ class _KerangjangScreens extends State<KerangjangScreens> {
                                     width: 10,
                                   ),
                                   Text(
-                                    "Catatan",
+                                    "Customize",
                                     style: TextStyle(color: Colors.white),
                                   )
                                 ],

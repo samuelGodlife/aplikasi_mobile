@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:logins_screen/Pages/Admin.dart';
 import 'package:logins_screen/Pages/DashboardUser.dart';
 import 'package:logins_screen/Pages/PelatihanDetailMateri.dart';
 import 'package:logins_screen/Pages/PelatihanDetailStateless.dart';
@@ -16,6 +17,7 @@ final Map<String, WidgetBuilder> routes = {
   HomeUsers.routeName: (context) => HomeUsers(),
   SplashScreen.routeName: (context) => SplashScreen(),
   DashboardScreen.routeName: (context) => DashboardScreen(),
+  AdminPage.routeName: (context) => AdminPage(),
   DetailProductscreens.routeName: (context) => DetailProductscreens(),
   DetailTransaksiPage.routeName: (context) => DetailTransaksiPage(),
   DetailPelatihan.routeName: (context) => DetailPelatihan(),

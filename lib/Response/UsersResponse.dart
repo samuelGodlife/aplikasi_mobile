@@ -32,6 +32,7 @@ class LoginResponse {
       status = responseJson['status'];
       // code = responseJson['code'];
       print(responseJson);
+      print("IANSINASIAS AIS ");
       // print(code);
       if (status == true) {
         dataUser = responseJson['data'];

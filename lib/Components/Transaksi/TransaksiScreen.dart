@@ -144,9 +144,9 @@ class _TransaksiScreens extends State<TransaksiScreens> {
                               ),
                               Container(
                                   child: Status == "Pending" ||
-                                          Status == "Belum Dibayar" ||
-                                          Status == "Dalam Proses" ||
                                           Status == 'Ditolak' ||
+                                          Status == 'Belum Dibayar' ||
+                                          Status == 'Dalam Proses' ||
                                           Status == 'Retur'
                                       ? Row(
                                           mainAxisAlignment:
@@ -154,16 +154,45 @@ class _TransaksiScreens extends State<TransaksiScreens> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Icon(
-                                              Icons.warning,
-                                              color: Colors.red,
-                                            ),
-                                            SizedBox(
-                                              width: 4,
-                                            ),
-                                            Text(Status,
-                                                style: TextStyle(
-                                                    color: Colors.red))
+                                            Container(
+                                                child:
+                                                    Status == "Belum Dibayar" ||
+                                                            Status ==
+                                                                "Dalam Proses" ||
+                                                            Status == 'Retur'
+                                                        ? Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons.history,
+                                                                color: Colors
+                                                                    .orange,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 4,
+                                                              ),
+                                                              Text(Status,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .orange))
+                                                            ],
+                                                          )
+                                                        : Row(
+                                                            children: [
+                                                              Icon(
+                                                                Icons
+                                                                    .cancel_outlined,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 4,
+                                                              ),
+                                                              Text(Status,
+                                                                  style: TextStyle(
+                                                                      color: Colors
+                                                                          .red))
+                                                            ],
+                                                          ))
                                           ],
                                         )
                                       : Row(

@@ -135,9 +135,7 @@ class _ProductDetailComponent extends State<ProductDetailComponent>
           children: [
             _thumbnail(
                 "$baseUrl/gambar-barang/${DetailProductscreens.dataBarang['gambar']}"),
-          ]
-          // AppData.showThumbnailList.map((x) => _thumbnail(x)).toList()
-          ),
+          ]),
     );
   }
 
